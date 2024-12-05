@@ -4,54 +4,54 @@
 
 This shows the general flow of how the system will function.
 
-```plantuml
-@startuml
+```mermaid
+sequenceDiagram
 
-participant User as user
-participant Hub as hub
-database HubDB as db
-queue "Service Bus" as que
-participant Service as svc
-participant "Document Manager" as dm
-participant Frontify as fnt
+participant user as User
+participant hub as Hub
+participant db as HubDB
+participant que as Service Bus
+participant svc as Service
+participant dm as Document Manager
+participant fnt as Frontify
 
-user -> hub 
-group Templates
-hub -> svc ++ #gold: Get Templates
-svc -> fnt ++ #gold: Get Templates
-fnt --> svc --
-svc -> fnt ++ #gold: Get Template Details
-fnt --> svc --
-svc --> hub --
+user ->> hub: 
+rect rgb(240,240,240)
+  note over user,fnt: Templates
+hub ->> svc ++ #gold: Get Templates
+svc ->> fnt ++ #gold: Get Templates
+fnt -->> svc --
+svc ->> fnt ++ #gold: Get Template Details
+fnt -->> svc --
+svc -->> hub --
 end
 
-hub -> hub ++ #gold: Prepare Text and Images
+hub ->> hub ++ #gold: Prepare Text and Images
 
-hub -> que  ++ #gold : Publish Brochure Artifacts 
-hub --> user --:done
+hub ->> que  ++ #gold : Publish Brochure Artifacts 
+hub -->> user --:done
 
-    que -> svc ++ #gold: Subscribe
+    que ->> svc ++ #gold: Subscribe
 loop
-        svc -> fnt ++ #gold: Load artifacts
-        fnt --> svc --
+        svc ->> fnt ++ #gold: Load artifacts
+        fnt -->> svc --
 end
-        svc -> fnt ++ #gold : Generate Brochure
-        fnt --> svc -- : 
-        svc -> dm ++ #gold: Store
-        dm --> svc --: Saved
-    svc -> que --: Publish
-hub <- que --++ #gold: Subscribe Brochure Metadata
-hub -> db : Add Brochure to attachments
-hub --> user --: Notify
+        svc ->> fnt ++ #gold : Generate Brochure
+        fnt -->> svc -- : 
+        svc ->> dm ++ #gold: Store
+        dm -->> svc --: Saved
+    svc ->> que --: Publish
+hque ->> ub --++ #gold: Subscribe Brochure Metadata
+hub ->> db : Add Brochure to attachments
+hub -->> user --: Notify
 
-====
+note over user,fnt: 
 
-user -> hub ++ #gold
-hub -> dm ++ #gold: Access Brochure
-dm --> hub --: 
-hub --> user
+user ->> hub ++ #gold
+hub ->> dm ++ #gold: Access Brochure
+dm -->> hub --: 
+hub -->> user:
 
-@enduml
 ```
 
 1. The selects if they want to generate a Bespoke or a Auto Generated brochure.
