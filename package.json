@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "gitbook-plugin-puml": "^1.0.1"
+  }
+}

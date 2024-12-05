@@ -1,7 +1,7 @@
 {
-  "plugins": ["graphviz-and-plant-uml"],
+  "plugins": ["puml"],
   "pluginsConfig": {
-    "graphviz-and-plant-uml": {
+    "puml": {
       "format": "png",
       "Render": "PlantUMLServer",
       "Server": "http://www.plantuml.com/plantuml"
