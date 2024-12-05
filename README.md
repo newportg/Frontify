@@ -1,6 +1,6 @@
 # About
 
-## Frontify
+Frontify
 
 ## Contents <a href="#contents-.toc-heading" id="contents-.toc-heading"></a>
 
@@ -31,4 +31,5 @@
 | Customer Insights Data Pipeline  | [Customer Insights to Hub Data Pipeline SAD v1.0.docx](https://knightfrank.sharepoint.com/:w:/s/SROProjectsDepartmentcopy/ETja2C-RS3NOuZsQ0x9J03MBmm6abX8Ebnzn0wflf8E00g?e=dg6RhP) |
 
 ## SAD Lite
-![SadLite](.gitbook/Assets/Sadlite.png)
+
+<figure><img src=".gitbook/assets/sadlite.png" alt=""><figcaption></figcaption></figure>
