@@ -2,6 +2,7 @@
   "plugins": ["graphviz-and-plant-uml"],
   "pluginsConfig": {
     "graphviz-and-plant-uml": {
+      "format": "png",
       "Render": "PlantUMLServer",
       "Server": "http://www.plantuml.com/plantuml"
     }
