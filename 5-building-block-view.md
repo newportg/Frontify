@@ -280,7 +280,7 @@ stop
 
 ### Component Detail
 
-1. Azure Function Detail
+1. [#azure-function](5-building-block-view-1/#azure-function "mention")
 2. Security Component
 3. Service Component
 4. Domain Logic Component
