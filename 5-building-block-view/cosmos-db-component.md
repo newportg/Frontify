@@ -40,12 +40,6 @@ A NoSql Cosmos DB container should be used as this service is similar in operati
             }
         ]
     },
-    "Response": {
-      "Brochure" : {
-        "DocManagerId": "string<GUID>",
-        "URL": "string<URL>"
-      }
-    },
     "Error" : [
       {
         "Desctiption" : "String"
