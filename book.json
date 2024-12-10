@@ -1,10 +1,3 @@
 {
-  "plugins": ["puml"],
-  "pluginsConfig": {
-    "puml": {
-      "format": "png",
-      "Render": "PlantUMLServer",
-      "Server": "http://www.plantuml.com/plantuml"
-    }
-  }
+
 }
