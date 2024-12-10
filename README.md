@@ -2,6 +2,11 @@
 
 Frontify
 
+```term
+gitbook-plugin-terminull$ echo 'hello terminull' # This will print hello terminull
+hello terminull
+```
+
 ## Contents <a href="#contents-.toc-heading" id="contents-.toc-heading"></a>
 
 \[\[toc]]
