@@ -1,0 +1,70 @@
+@startuml
+
+actor "Hub User" as user
+participant Hub as hub
+database HUbDb as hubdb
+queue "Service Bus" as bus
+participant Service as svc
+database CosmosDb as db
+participant "Document Manager" as dm
+participant Frontify as fmt
+actor "Frontify User" as fmtUsr
+
+user -> hub ++ #gold
+  hub -> svc ++ #gold: Get Templates
+    svc -> fmt ++ #gold: Get Templates
+    fmt --> svc --
+  svc --> hub --
+hub --> user --: Select template
+
+user -> hub ++ #gold: Create Brochure
+  hub -> bus ++ #gold: Publish Create Brochure
+    bus -> svc ++ #gold: Subscribe Brochure Artifacts
+    Group Create Brochure Object
+        svc -> db : Create Brochure Object
+        svc -> db : Add Text to Brochure Object
+        loop
+            svc -> fmt ++ #gold: Load and Create Asset
+            fmt --> svc --  
+            svc -> db : Add AssetId to Brochure Object
+        end
+    End
+    Group #pink Bespoke 
+        svc -> svc : Create CSV
+        svc -> db : Get Incomplete Brochure Objects
+        svc -> svc : Create CSV rows
+        svc -> fmt ++ #gold: Upload CSV
+        
+        fmt -> fmtUsr ++ #gold 
+        fmtUsr --> fmt --
+        fmt --> svc --
+        ...
+        Group Brochure Completion / User
+          fmtUsr -> hub : Set Brochure Complete
+          hub -> svc : Set Brochure Complete
+          svc --> hub
+        End
+
+    End
+    Group #lightblue Auto
+        svc -> fmt ++ #gold: Create Brochure Request from Brochure Object
+        fmt -> fmt : 
+        ...
+        Group Brochure Completion /  WebHook
+            fmt -> svc --: Brochure Created
+        End     
+    End
+
+    svc -> fmt ++ #gold: Get Brochure
+    fmt --> svc --
+
+    svc -> dm ++ #gold: Save Brochure
+    dm --> svc --
+    svc -> db : Complete Brochure Object
+    svc --> bus --: Publish Brochure metadata
+
+  bus -> hub --: Subscribe Brochure metadata
+  hub -> hubdb ++ #gold: Save metadata
+  hubdb --> hub --: 
+hub -> user --: Notify
+@enduml

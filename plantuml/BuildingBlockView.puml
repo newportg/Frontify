@@ -1,0 +1,55 @@
+@startuml System
+!include <C4/C4_Component>
+!include <azure/AzureCommon>
+!include <azure/Compute/AzureFunction>
+!include <azure/Web/AzureAPIManagement>
+!include <azure/Integration/AzureServiceBusTopic>
+!include <azure/Web/AzureSearch>
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_LEFT_RIGHT()
+
+AddElementTag("microService", $shape=EightSidedShape(), $fontColor="white", $legendText="micro service\neight sided")
+AddElementTag("storage", $shape=RoundedBoxShape(), $fontColor="white")
+
+
+System_Boundary(c1, "Knight Frank") {
+    System_Boundary(auth, "Managed Identity") {
+        System(hub, "Hub", "Internal Residential Transaction")
+        System(ns, "NorthStar", "Hub Next")   
+
+        AzureAPIManagement(apim, "APIM", "Management")
+        AzureServiceBusTopic(sbus, "Serice Bus Topic", "Integration")
+        Container_Boundary(app, "Address Service", "Allows users to read address information", $tags = "microService") {
+            AzureFunction(aFunc, "Function", "Http/Sbus Trigger")
+            Component(compDom, "Domain Logic Component", "Process, Rules and validation")
+            Component(compSec, "Security Component", "Provides functionality to validate callers and grant access to the service ")
+            Component(compCosmos, "CosmosDB  Component", "Provides db CRUD, versioning functionality")            
+            Component(compFrontify, "Frontify Service Handler", "Provides functionality to interact with the Frontify service")
+            Component(compAudit, "Audit Component", "Provides functionality that is useful for administration")
+        }
+        SystemDb(cosmos, "CosmosDB", "Content Managemnt Storage", $tags = "storage")
+        AzureSearch(search, "AzureSearch", "Provides search functionality")
+    }
+}
+
+System_Ext(extFrontify, "Frontify", "External Brochure Generation Service")
+
+Rel(hub, sbus, "Searches and selects address", "Http")
+Rel(ns, sbus, "Searches and selects address", "Http")
+
+Rel(apim, aFunc, "")
+Rel(sbus, aFunc, "")
+
+Rel(aFunc, compDom, "")
+Rel(aFunc, compSec, "")
+Rel(compDom, compCosmos, "")
+Rel(compDom, compFrontify, "")
+Rel(compDom, compAudit, "")
+
+Rel(compCosmos, cosmos, "Get previously cached brochure Detail")
+Rel(compCosmos, search, "Search brochure detail")
+Rel(cosmos, search, "")
+Rel(compFrontify, extFrontify, "Hierarchical search finding addess", "Https")
+
+@enduml
