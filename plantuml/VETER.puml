@@ -1,0 +1,48 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/EIP-PlantUML/main/dist/EIP-PlantUML.puml
+!include <C4/C4_Component>
+AddElementTag("storage", $shape=RoundedBoxShape(), $fontColor="white")
+LAYOUT_TOP_DOWN()
+
+MessageEndpoint( svc, "Service Request" )
+Message( req, "Request")
+Message( loq, "Frontify Request")
+MessageEndpoint(frontify, "Frontify Request" )
+
+System_Boundary(c1, "Domain") {
+    SelectiveConsumer(reqval, "Validation")
+    MessageTranslator( req2con, "Request to Canonical")
+    MessageTranslator( con2loq, "Canonical to Frontify")
+    Message( con, "Canonical")
+    Message( conr, "Canonical")
+    MessageTranslator( loqr2conr, "Frontify Response to Canonical")
+    SelectiveConsumer(resval, "Validation")
+
+    con -- conr
+}
+SystemDb(cosmos, "CosmosDB", "Content Managemnt Storage", $tags = "storage")
+conr --> cosmos
+
+MessageEndpoint( svcr, "Service Response" )
+Message( res, "Response")
+Message( loqr, "Frontify Response")
+MessageEndpoint(frontifyr, "Frontify Response" )
+
+svc -> req
+req -> reqval
+reqval -> req2con
+req2con -> con
+con -> con2loq
+con2loq -> loq
+loq -> frontify
+
+req -[hidden]-> res
+
+svcr <- res
+res <- conr
+conr <- loqr2conr
+loqr2conr <- resval
+resval <- loqr
+loqr <- frontifyr
+
+@enduml
