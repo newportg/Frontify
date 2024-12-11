@@ -4,56 +4,7 @@
 
 This shows the general flow of how the system will function.
 
-```plant-uml
-@startuml
-
-participant User as user
-participant Hub as hub
-database HubDB as db
-queue "Service Bus" as que
-participant Service as svc
-participant "Document Manager" as dm
-participant Frontify as fnt
-
-user -> hub 
-group Templates
-hub -> svc ++ #gold: Get Templates
-svc -> fnt ++ #gold: Get Templates
-fnt --> svc --
-svc -> fnt ++ #gold: Get Template Details
-fnt --> svc --
-svc --> hub --
-end
-
-hub -> hub ++ #gold: Prepare Text and Images
-
-hub -> que  ++ #gold : Publish Brochure Artifacts 
-hub --> user --:done
-
-    que -> svc ++ #gold: Subscribe
-loop
-        svc -> fnt ++ #gold: Load artifacts
-        fnt --> svc --
-end
-        svc -> fnt ++ #gold : Generate Brochure
-        fnt --> svc -- : 
-        svc -> dm ++ #gold: Store
-        dm --> svc --: Saved
-    svc -> que --: Publish
-hub <- que --++ #gold: Subscribe Brochure Metadata
-hub -> db : Add Brochure to attachments
-hub --> user --: Notify
-
-====
-
-user -> hub ++ #gold
-hub -> dm ++ #gold: Access Brochure
-dm --> hub --: 
-hub --> user
-
-@enduml
-
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/RuntimeView.puml)
 
 1. The selects if they want to generate a Bespoke or a Auto Generated brochure.
 2. The service will make a Get Template request to Frontify, and filter the list to only those templates that are either the CSV or the Auto Generation brochure types.
