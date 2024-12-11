@@ -1,0 +1,17 @@
+@startjson
+{
+    "Templates": [
+        {
+            "TemplateId": "string",
+            "Name": "string",
+            "Description": "string",
+            "Details": [
+                {
+                    "Key": "string",
+                    "Type": "Text/Image"
+                }
+            ]              
+        }
+    ]
+}
+@endjson

@@ -1,0 +1,9 @@
+@startuml
+  : 3, Complete Brochure;
+  Group Hub
+    :HUB : Complete Brochure;
+  EndGroup
+  Group Service
+    :SVC : Mark datastore Brochure Object Complete;
+  EndGroup
+@enduml

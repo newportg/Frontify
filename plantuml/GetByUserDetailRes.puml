@@ -1,0 +1,18 @@
+@startjson
+{
+    "User": {
+        "id" : "string<uuid>",
+        "login": "string",
+        "name": "string",
+        "email": "string"
+    },
+    "Count": "string<number>",
+    "Requests" : [
+        {
+            "Id": "string",
+            "When" : "string<DateTime>",
+            "Sourced": "Ext/int"
+        }
+    ]
+}
+@endjson

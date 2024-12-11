@@ -1,0 +1,16 @@
+@startuml
+{
+    "Host":{
+        "ipAddress":"string<ipv4>",
+        "hostName":"string<hostname>"
+    },
+    "Count": "string<number>",
+    "Requests" : [
+        {
+            "Id": "string",
+            "When" : "string<DateTime>",
+            "Sourced": "Ext/int"
+        }
+    ]
+}
+@endjson

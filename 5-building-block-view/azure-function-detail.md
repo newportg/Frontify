@@ -4,36 +4,7 @@
 
 ### Azure Function
 
-```plantuml
-@startuml System
-!include <C4/C4_Component>
-!include <azure/AzureCommon>
-!include <azure/Compute/AzureFunction>
-!include <azure/Web/AzureAPIManagement>
-!include <azure/Integration/AzureServiceBusTopic>
-
-LAYOUT_LEFT_RIGHT()
-
-AddElementTag("microService", $shape=EightSidedShape(), $fontColor="white", $legendText="micro service\neight sided")
-AddElementTag("storage", $shape=RoundedBoxShape(), $fontColor="white")
-
-
-AzureAPIManagement(apim, "APIM", "Management")
-AzureServiceBusTopic(sbus, "Serice Bus Topic", "Integration")
-Container_Boundary(app, "Address Service", "Allows users to read address information", $tags = "microService") {
-    AzureFunction(aFunc, "Function", "Http/Sbus Trigger")
-    Component(compDom, "Domain Logic Component", "Process, Rules and validation")
-    Component(compSec, "Security Component", "Provides functionality to validate callers and grant access to the service ")
-
-}
-Rel(apim, aFunc, "HTTP Trigger") 
-Rel(sbus, aFunc, "Service Bus Trigger")
-
-Rel(aFunc, compDom, "")
-Rel(aFunc, compSec, "")
-
-@enduml
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/AzureFunction.puml)
 
 #### RESTFul API
 
@@ -44,16 +15,7 @@ Rel(aFunc, compSec, "")
 * Returns a list of templates
 * Flow
 
-```plantuml
-Group Service
-  start
-    :Get Template request;
-    :Get Templates from Frontify;
-    :Filter Templates by Auto Generation indicator;
-    :Return Template List;
-  stop
-EndGroup
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetTemplates.puml)
 
 * URL : /Templates
 * Parameters : None
@@ -69,39 +31,13 @@ EndGroup
     | 5xx   | System Failure |
 * Response Body
 
-```plantuml
-@startjson
-{
-    "Templates": [
-        {
-            "TemplateId": "string",
-            "Name": "string",
-            "Description": "string",
-            "Details": [
-                {
-                    "Key": "string",
-                    "Type": "Text/Image"
-                }
-            ]              
-        }
-    ]
-}
-@endjson
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetTemplatesRes.puml)
 
 **N.B. The Details array forms the Details array of the brochure request.**
 
 **Complete Brochure**
 
-```plantuml
-  : 3, Complete Brochure;
-  Group Hub
-    :HUB : Complete Brochure;
-  EndGroup
-  Group Service
-    :SVC : Mark datastore Brochure Object Complete;
-  EndGroup
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/CompleteBrochure.puml)
 
 |               |                   |                          |
 | ------------- | ----------------- | ------------------------ |
@@ -128,16 +64,8 @@ EndGroup
 * Request Body **None**
 *   Response Body
 
-    ```plantuml
-    @startjson
-    [
-        {
-            "SourceApp": "string",
-            "Count": "string<number>"
-        }
-    ]
-    @endjson
-    ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetBySourceAppRes.puml)
+
 *   HTTP Errors
 
     | Error | Meaning        |
@@ -161,41 +89,11 @@ EndGroup
 * Response Body
   *   Count Response
 
-      ```plantuml
-      @startjson
-      {
-          "User": {
-              "id" : "string<uuid>",
-              "login": "string",
-              "name": "string",
-              "email": "string"
-          },
-          "Count": "string<number>"
-      }
-      @endjson
-      ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByUserRes.puml)
   *   Detail response
 
-      ```plantuml
-      @startjson
-      {
-          "User": {
-              "id" : "string<uuid>",
-              "login": "string",
-              "name": "string",
-              "email": "string"
-          },
-          "Count": "string<number>",
-          "Requests" : [
-              {
-                  "Id": "string",
-                  "When" : "string<DateTime>",
-                  "Sourced": "Ext/int"
-              }
-          ]
-      }
-      @endjson
-      ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByUserDetailRes.puml)
+
 *   HTTP Errors
 
     | Error | Meaning        |
@@ -219,41 +117,12 @@ EndGroup
 * Response Body
   *   Count Response
 
-      ```plantuml
-      @startjson
-      {
-          "Impersonating": {
-              "id" : "string<uuid>",
-              "login": "string",
-              "name": "string",
-              "email": "string"
-          },
-          "Count": "string<number>"
-      }
-      @endjson
-      ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByImpersonatingCountRes.puml)
+
   *   Detail response
 
-      ```plantuml
-      @startjson
-      {
-          "Impersonating": {
-              "id" : "string<uuid>",
-              "login": "string",
-              "name": "string",
-              "email": "string"
-          },
-          "Count": "string<number>",
-          "Requests" : [
-              {
-                  "Id": "string",
-                  "When" : "string<DateTime>",
-                  "Sourced": "Ext/int"
-              }
-          ]
-      }
-      @endjson
-      ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByImpersonatingDetailRes.puml)
+
 *   HTTP Errors
 
     | Error | Meaning        |
@@ -296,81 +165,18 @@ EndGroup
 
     *   Count Response
 
-        ```plantuml
-        @startjson
-        {
-            "Host":{
-                "ipAddress":"string<ipv4>",
-                "hostName":"string<hostname>"
-            },
-            "Count": "string<number>"
-        }
-        @endjson
-        ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByHostCountRes.puml)
+
     *   Detail response
 
-        ```plantuml
-        @startjson
-        {
-            "Host":{
-                "ipAddress":"string<ipv4>",
-                "hostName":"string<hostname>"
-            },
-            "Count": "string<number>",
-            "Requests" : [
-                {
-                    "Id": "string",
-                    "When" : "string<DateTime>",
-                    "Sourced": "Ext/int"
-                }
-            ]
-        }
-        @endjson
-        ```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByHostDetailRes.puml)
+
 
 #### Service Bus
 
 **Request**
 
-```plantuml
-@startjson
-{
-    "Audit": {
-        "sourceApp": "string",
-        "user": {
-            "id" : "string<uuid>",
-            "login": "string",
-            "name": "string",
-            "email": "string"
-        },
-        "impersonating": {
-            "id" : "string<uuid>",
-            "login": "string",
-            "name": "string",
-            "email": "string"
-        },
-        "host":{
-            "ipAddress":"string<ipv4>",
-            "hostName":"string<hostname>"
-        },
-        "timestamp": "string<datetime>"
-    },
-    "Request" : {
-        "Id": "string<GUID>",
-        "Custom" : "string<boolean>",
-        "TemplateId": "string<FrontifyId>",
-        "Brochure": [
-            { 
-              "Key": "string",
-              "Type": "string",
-              "Value": "string"
-            }
-        ]
-    }
-}
-
-@endjson
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/ServiceBusReq.puml)
 
 | Column     | M/O | Type    | Description                                                      |
 | ---------- | --- | ------- | ---------------------------------------------------------------- |
@@ -387,52 +193,5 @@ EndGroup
 
 **Response**
 
-```plantuml
-@startjson
-{
-    "Audit": {
-        "sourceApp": "string",
-        "user": {
-            "id" : "string<uuid>",
-            "login": "string",
-            "name": "string",
-            "email": "string"
-        },
-        "impersonating": {
-            "id" : "string<uuid>",
-            "login": "string",
-            "name": "string",
-            "email": "string"
-        },
-        "host":{
-            "ipAddress":"string<ipv4>",
-            "hostName":"string<hostname>"
-        },
-        "timestamp": "string<datetime>"
-    },
-    "Request" : {
-        "Id": "string<GUID>",
-        "Custom" : "string<boolean>",
-        "TemplateId": "string<FrontifyId>",
-        "Brochure": [
-            { 
-              "Key": "string",
-              "Type": "string",
-              "Value": "string"
-            }
-        ]
-    },
-    "Response": {
-      "Brochure" : {
-        "DocManagerId": "string<GUID>",
-        "URL": "string<URL>"
-      }
-    },
-    "Error" : [
-      {
-        "Desctiption" : "String"
-      }
-    ]    
-}
-@endjson
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/ServiceBusRes.puml)
+

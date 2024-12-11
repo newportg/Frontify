@@ -1,0 +1,37 @@
+@startjson
+{
+    "Audit": {
+        "sourceApp": "string",
+        "user": {
+            "id" : "string<uuid>",
+            "login": "string",
+            "name": "string",
+            "email": "string"
+        },
+        "impersonating": {
+            "id" : "string<uuid>",
+            "login": "string",
+            "name": "string",
+            "email": "string"
+        },
+        "host":{
+            "ipAddress":"string<ipv4>",
+            "hostName":"string<hostname>"
+        },
+        "timestamp": "string<datetime>"
+    },
+    "Request" : {
+        "Id": "string<GUID>",
+        "Custom" : "string<boolean>",
+        "TemplateId": "string<FrontifyId>",
+        "Brochure": [
+            { 
+              "Key": "string",
+              "Type": "string",
+              "Value": "string"
+            }
+        ]
+    }
+}
+
+@endjson

@@ -1,0 +1,9 @@
+@startjson
+{
+    "Host":{
+        "ipAddress":"string<ipv4>",
+        "hostName":"string<hostname>"
+    },
+    "Count": "string<number>"
+}
+@endjson

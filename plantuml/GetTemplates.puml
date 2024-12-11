@@ -1,0 +1,11 @@
+@startuml
+Group Service
+  start
+    :Get Template request;
+    :Get Templates from Frontify;
+    :Filter Templates by Auto Generation indicator;
+    :Return Template List;
+  stop
+EndGroup
+
+@enduml
