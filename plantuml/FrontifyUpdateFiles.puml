@@ -1,0 +1,12 @@
+@startuml
+participant Service as svc
+participant Frontify as fnt
+
+group Asset Upload
+    svc -> fnt : Initialize File Upload
+    fnt --> svc : FileId
+    svc -> fnt : Upload binary image
+    svc -> fnt : Create Image Asset
+    fnt --> svc : Asset Id
+end
+@enduml

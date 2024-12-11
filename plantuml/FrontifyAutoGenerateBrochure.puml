@@ -1,0 +1,24 @@
+@startuml
+participant Service as svc
+participant Frontify as fnt
+
+group Auto Generate Brochure
+    svc -> fnt ++ #gold: Export Creative 
+    fnt --> svc --
+    loop
+        svc -> fnt ++ #gold: Poll Status
+        fnt -> svc --
+    end
+
+    alt Webhook
+        svc -> fnt ++ #gold: Register Webhook
+        fnt --> svc --
+        ====
+        fnt -> svc ++ #gold: Status Complete
+        svc --> fnt --
+        svc -> fnt ++ #gold: Get Brochure
+        fnt --> svc --:
+    end
+
+end
+@enduml

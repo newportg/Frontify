@@ -84,22 +84,8 @@ It has a GraphQL playground where you can test your queries.
 
 ## List of Templates Available to Hub
 
-```plantuml
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/FrontifyListOfTemplates.puml)
 
-start
-    : Get List of Templates;
-    : Filter list of Templates;
-    : Create response object;
-    repeat
-        : Create Template object;
-        : Add Description to Template Object;
-        : Add Key and Type infomation to Template Object;
-        : Add Template Object to response Object;
-    repeat while (more templates) is (yes) not (no)
-
-    : return Array of templates;
-stop
-```
 
 Queries you will need to use include :-
 
@@ -156,18 +142,8 @@ Queries you will need to use include :-
 
 This applies to both the Image and CSV assets. Files can only be used once a asset has been created.
 
-```plantuml
-participant Service as svc
-participant Frontify as fnt
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/FrontifyUpdateFiles.puml)
 
-group Asset Upload
-    svc -> fnt : Initialize File Upload
-    fnt --> svc : FileId
-    svc -> fnt : Upload binary image
-    svc -> fnt : Create Image Asset
-    fnt --> svc : Asset Id
-end
-```
 
 Please refer to this page :- https://developer.frontify.com/document/2570#/deep-dive/upload-file-create-asset
 
@@ -177,30 +153,7 @@ Please refer to this page :- https://developer.frontify.com/document/2570#/deep-
 
 The ExportCreative operation passes all the text and image ids to a template and executes the brochure creation. Currently there is a polling interface to check when the brochure has been completed, But this will change to the webhook style.
 
-```plantuml
-participant Service as svc
-participant Frontify as fnt
-
-group Auto Generate Brochure
-    svc -> fnt ++ #gold: Export Creative 
-    fnt --> svc --
-    loop
-        svc -> fnt ++ #gold: Poll Status
-        fnt -> svc --
-    end
-
-    alt Webhook
-        svc -> fnt ++ #gold: Register Webhook
-        fnt --> svc --
-        ====
-        fnt -> svc ++ #gold: Status Complete
-        svc --> fnt --
-        svc -> fnt ++ #gold: Get Brochure
-        fnt --> svc --:
-    end
-
-end
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/FrontifyAutoGenerateBrochure.puml)
 
 Please Refer to this page :- https://developer.frontify.com/document/2570#/deep-dive/template-data-fetching-and-exporting
 

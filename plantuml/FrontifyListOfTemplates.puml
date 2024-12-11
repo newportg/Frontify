@@ -1,0 +1,15 @@
+@startuml
+start
+    : Get List of Templates;
+    : Filter list of Templates;
+    : Create response object;
+    repeat
+        : Create Template object;
+        : Add Description to Template Object;
+        : Add Key and Type infomation to Template Object;
+        : Add Template Object to response Object;
+    repeat while (more templates) is (yes) not (no)
+
+    : return Array of templates;
+stop
+@enduml
