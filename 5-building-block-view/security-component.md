@@ -1,33 +1,6 @@
 # Security Component
 
-```plantuml
-@startuml System
-!include <C4/C4_Component>
-!include <azure/AzureCommon>
-!include <azure/Compute/AzureFunction>
-!include <azure/Web/AzureAPIManagement>
-!include <azure/Integration/AzureServiceBusTopic>
-!include <azure/Identity/all>
-
-LAYOUT_LEFT_RIGHT()
-
-        AzureActiveDirectory( adp, "Active Directory", "Resources")
-        AzureActiveDirectory( ad, "Active Directory", "Internal Users")
-        AzureActiveDirectoryB2C( b2c, "AD B2C", "External Users")
-        AzureFunction(aFunc, "Function", "Http/Sbus Trigger")
-        Container_Boundary(sec, "Security Component", "Validates Calling service and users") {
-            Component( mi, "Validate Managed Identity", "")
-            Component( us, "Validate User and check claims", "")
-
-        }
-
-        ad ..> b2c : Validate external user
-        mi --> adp 
-        us --> ad 
-        aFunc --> sec
-
-@enduml
-```
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/SecurityComponent.puml)
 
 ## Managed Identity
 
