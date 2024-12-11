@@ -8,38 +8,8 @@ A internal user will have the ability to pass property, text and image informati
 
 ## Technical Context
 
-```plantuml
-@startuml System
-!include <C4/C4_Container>
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/TechnicalContext.puml)
 
-LAYOUT_WITH_LEGEND()
-LAYOUT_LEFT_RIGHT()
-
-AddElementTag("microService", $shape=EightSidedShape(), $fontColor="white", $legendText="micro service\neight sided")
-AddElementTag("storage", $shape=RoundedBoxShape(), $fontColor="white")
-
-
-System_Boundary(c1, "Knight Frank") {
-    System(hub, "Hub", "Internal Residential Transaction")
-    System(ns, "NorthStar", "Hub Next")   
-
-    System_Boundary(auth, "Managed Identity") {
-        System(app, "Brochure Service", "Allows users to generate brochures", $tags = "microService")    
-        SystemDb(cosmos, "CosmosDB", "Content Managemnt Storage", $tags = "storage")
-
-    }
-}
-
-System_Ext(extFrontify, "Frontify", "External Marketing Material Generation serivce")
-
-Rel(hub, app, "Selects activity for brochure generation", "Https")
-Rel(ns, app, "Selects activity for brochure generation", "Https")
-Rel(app, cosmos, "Get previously cached Brochure Detail ")
-Rel(app, extFrontify, "Genreate Brocure", "Https")
-
-
-@enduml
-```
 
 * The API runs as a microservice on our cloud platform, and will be accessible via a API Management interface.
 * The connection to the external Address provider is over HTTPS, secured by OAuth2.
