@@ -89,7 +89,7 @@
 * Response Body
   *   Count Response
 
-![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByUserRes.puml)
+![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByUseCountRes.puml)
   *   Detail response
 
 ![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/GetByUserDetailRes.puml)
