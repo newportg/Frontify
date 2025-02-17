@@ -194,4 +194,3 @@
 **Response**
 
 ![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/ServiceBusRes.puml)
-
