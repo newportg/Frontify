@@ -11,7 +11,7 @@
         {
             "Id": "string",
             "When" : "string<DateTime>",
-            "Sourced": "Ext/int"
+            "SourceApp": "string"
         }
     ]
 }
