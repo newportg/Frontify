@@ -1,4 +1,4 @@
-@startuml System
+@startuml DeploymentView
 !include <C4/C4_Component>
 !include <azure/AzureCommon>
 !include <azure/Compute/AzureFunction>
@@ -15,7 +15,7 @@
 !include <azure/Identity/AzureActiveDirectory>
 !include <azure/Identity/AzureManagedIdentity>
 
-LAYOUT_WITH_LEGEND()
+'LAYOUT_WITH_LEGEND()
 'LAYOUT_LEFT_RIGHT()
 
 AddElementTag("microService", $shape=EightSidedShape(), $fontColor="white", $legendText="micro service\neight sided")
@@ -29,10 +29,6 @@ System_Boundary(s1, "Knight Frank") {
 
     Container_Boundary(c1, "Shared Subscription") {
 
-        Container_Boundary(rgsd, "rg-shared-data-env-ne") {
-            AzureCosmosDb(db, "cosmos-shared-data-env-ne", "Container - Frontify")
-        }
-
         Container_Boundary(rgsh, "rg-shared-env-ne") {
             AzureAPIManagement(apimI, "apim-shared-env-ne", "Internal Interface")
             apimI -up-> ad : Validate App Registration
@@ -41,17 +37,23 @@ System_Boundary(s1, "Knight Frank") {
         AzureManagedIdentity(misvc, "Managed Identity", "route")
         AzureAppRegistration(reg, "", "Application Registration")
 
-        Container_Boundary(rggw, "rg-frontify-env-ne") {
+    }
+    
+    Container_Boundary(c2, "Hub Subscription") {
+        Container_Boundary(rggw, "rg-hub-frontify-env-ne") {
             AzureFunction(svc, "func-frontify-env-ne", "Azure Function")
             AzureApplicationInsights(ai, "appi-frontify", "Application Insights")
             AzureBlobStorage(st, "stFrontifyEnvNe", "Atorage Account")
             AzureKeyVault(key, "key-frontify-env-ne", "Key Vault")
-            
 
             svc --> ai : uses
             svc --> st : uses
             svc --> key : uses
             svc -up-> reg : register
+        }
+
+        Container_Boundary(rgsd, "rg-hub-data-env-ne") {
+            AzureCosmosDb(db, "cosmos-hub-data-env-ne", "Container - Frontify")
         }
 
         svc --> db : uses
