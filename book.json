@@ -6,7 +6,7 @@
       "type": "plantuml-server",
       "host": "www.plantuml.com",
       "port": "80",
-      "path": "/plantuml/",
+      "path": "/plantuml/svg",
       "language": "asciidoc",
       "format": "svg"
     }
