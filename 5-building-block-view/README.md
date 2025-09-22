@@ -2,6 +2,9 @@
 
 ![image](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/newportg/Frontify/master/plantuml/BuildingBlockView.puml)
 
+```plantuml
+a -> b
+```
 
 This service has been designed to handle the interaction with the Frontify brochure generation service. Based on the information supplied the service will determine whether to use the, more automated API service, or the more bespoke CSV file service, which requires a great deal of user interaction.
 
