@@ -1,3 +1,14 @@
 {
-    "plugins": ["index-of-figures"]
+    "plugins": ["index-of-figures","plantuml-cloud-languages-ok"],
+    "pluginsConfig": {
+    "plantuml-cloud-languages-ok": {
+      "protocol": "http",
+      "type": "plantuml-server",
+      "host": "www.plantuml.com",
+      "port": "80",
+      "path": "/plantuml/",
+      "language": "asciidoc",
+      "format": "svg"
+    }
+  }
 }
